@@ -5,6 +5,7 @@ from fixture.mail import MailHelper
 from fixture.project import ProjectHelper
 from fixture.session import SessionHelper
 from fixture.signup import SignupHelper
+from fixture.soap import SoapHelper
 
 
 class Application:
@@ -20,6 +21,7 @@ class Application:
         else:
             raise ValueError("Unrecognized browser %s" % browser)
         self.james = JamesHelper(self)
+        self.soap = SoapHelper(self)
         self.mail = MailHelper(self)
         self.signup = SignupHelper(self)
         self.session = SessionHelper(self)
