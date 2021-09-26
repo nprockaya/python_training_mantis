@@ -4,6 +4,8 @@ from model.project_class import Project
 
 
 def test_delete_projects(app, db):
+    app.session.ensure_login_by_administrator()
+
     if len(db.get_projects()) == 0:
         create_project_for_test(app)
 

@@ -6,11 +6,7 @@ class SessionHelper:
     def login(self, user_name, password):
         wd = self.app.wd
         self.app.open_homepage()
-        wd.find_element_by_name("username").click()
-        wd.find_element_by_name("username").clear()
         wd.find_element_by_name("username").send_keys(user_name)
-        wd.find_element_by_name("password").click()
-        wd.find_element_by_name("password").clear()
         wd.find_element_by_name("password").send_keys(password)
         wd.find_element_by_css_selector("input[type='submit']").click()
 
@@ -33,11 +29,13 @@ class SessionHelper:
     def is_logged_in_as(self, user_name):
         return self.get_logged_user() == user_name
 
-    def ensure_login(self, user_name, password):
-        wd = self.app.wd
+    def ensure_login_by_administrator(self):
+        web_admin_config = self.app.config["web_admin"]
+        username = web_admin_config['username']
+        password = web_admin_config['password']
         if self.is_logged_in():
-            if self.is_logged_in_as(user_name):
+            if self.is_logged_in_as(username):
                 return
             else:
                 self.logout()
-        self.login(user_name, password)
+        self.login(username, password)

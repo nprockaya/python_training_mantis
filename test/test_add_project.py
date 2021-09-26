@@ -4,6 +4,8 @@ from model.project_class import Project
 
 
 def test_add_projects(app, db):
+    app.session.ensure_login_by_administrator()
+
     projects = db.get_projects()
     # For generating unique project name
     date_time = datetime.now().strftime("%d/%m/%Y %H:%M:%S")

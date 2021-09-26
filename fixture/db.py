@@ -28,7 +28,7 @@ class DbFixture:
         project = None
         cursor = self.connection.cursor()
         try:
-            cursor.execute("select id, name, description from mantis_project_table limit 1")
+            cursor.execute("select id, name, description from mantis_project_table order by name asc limit 1")
             for row in cursor:
                 (id, name, description) = row
                 project = Project(id=str(id), name=name, description=description)

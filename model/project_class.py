@@ -8,7 +8,7 @@ class Project:
         self.description = description
 
     def __repr__(self):
-        return "%s:%s%s" % (self.id, self.name, self.description)
+        return "%s: %s %s" % (self.id, self.name, self.description)
 
     def __eq__(self, other):
         return (self.id is None or other.id is None or self.id == other.id) and (

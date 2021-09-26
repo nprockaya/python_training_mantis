@@ -13,11 +13,7 @@ class ProjectHelper:
         self.app.open_homepage()
         self.open_projects_page()
         wd.find_element_by_xpath("//input[@value='Create New Project']").click()
-        wd.find_element_by_name("name").click()
-        wd.find_element_by_name("name").clear()
         wd.find_element_by_name("name").send_keys(project.name)
-        wd.find_element_by_name("description").click()
-        wd.find_element_by_name("description").clear()
         wd.find_element_by_name("description").send_keys(project.description)
         wd.find_element_by_xpath("//input[@value='Add Project']").click()
 
