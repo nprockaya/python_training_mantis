@@ -23,7 +23,7 @@ def app(request, config):
     web_config = config["web"]
     web_admin_config = config["web_admin"]
     if fixture is None or not fixture.is_valid():
-        fixture = Application(browser=browser, base_url=web_config["base_url"])
+        fixture = Application(config=config, browser=browser)
     fixture.session.ensure_login(web_admin_config["username"], web_admin_config["password"])
     return fixture
 

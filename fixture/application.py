@@ -1,11 +1,12 @@
 from selenium import webdriver
 
+from fixture.james import JamesHelper
 from fixture.project import ProjectHelper
 from fixture.session import SessionHelper
 
 
 class Application:
-    def __init__(self, browser="firefox", base_url="http://localhost/mantisbt/"):
+    def __init__(self, config, browser="firefox"):
         if browser == "firefox":
             self.wd = webdriver.Firefox()
         elif browser == "chrome":
@@ -16,9 +17,11 @@ class Application:
             self.wd = webdriver.Opera()
         else:
             raise ValueError("Unrecognized browser %s" % browser)
+        self.james = JamesHelper(self)
         self.session = SessionHelper(self)
         self.project = ProjectHelper(self)
-        self.base_url = base_url
+        self.config = config
+        self.base_url = config['web']['base_url']
 
     def open_homepage(self):
         wd = self.wd
