@@ -39,3 +39,7 @@ class SessionHelper:
             else:
                 self.logout()
         self.login(username, password)
+
+    def get_administrator_credentials(self):
+        web_admin_config = self.app.config["web_admin"]
+        return web_admin_config['username'], web_admin_config['password']
