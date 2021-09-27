@@ -20,6 +20,7 @@ class Application:
             self.wd = webdriver.Opera()
         else:
             raise ValueError("Unrecognized browser %s" % browser)
+        self.base_url = config['web']['base_url']
         self.james = JamesHelper(self)
         self.soap = SoapHelper(self)
         self.mail = MailHelper(self)
@@ -27,7 +28,6 @@ class Application:
         self.session = SessionHelper(self)
         self.project = ProjectHelper(self)
         self.config = config
-        self.base_url = config['web']['base_url']
 
     def open_homepage(self):
         wd = self.wd
