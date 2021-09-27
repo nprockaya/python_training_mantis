@@ -25,9 +25,9 @@ class SoapHelper:
         except WebFault:
             return None
 
-    def get_first_project(self, username, password):
-        projects = sorted(self.get_projects(username, password), key=lambda project: project.name)
+    def get_project_by_id(self, username, password, project_id):
+        projects = self.get_projects(username, password)
         if projects is not None and len(projects) > 0:
-            return projects[0]
+            return next((x for x in projects if x.id == project_id), None)
         else:
             return None

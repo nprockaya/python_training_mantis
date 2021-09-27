@@ -2,28 +2,21 @@ from model.project_class import Project
 from utils.random_utils import random_project_name_description
 
 
-def test_delete_projects(app):
+def test_delete_projects_db(app, db):
     app.session.ensure_login_by_administrator()
-    username, password = app.session.get_administrator_credentials()
 
-    projects = app.soap.get_projects(username, password)
-    assert projects is not None
-
-    if len(projects) == 0:
+    if len(db.get_projects()) == 0:
         create_project_for_test(app)
 
-    projects = app.soap.get_projects(username, password)
-    assert projects is not None
+    projects = db.get_projects()
 
-    # Get id of first project on UI and get this project from SOAP by id
+    # Get id of first project from UI and get this project from DB by id
     project_for_delete_id = app.project.get_first_project_id()
-    project_for_delete = app.soap.get_project_by_id(username, password, project_for_delete_id)
-    assert project_for_delete is not None
+    project_for_delete = db.get_project_by_id(project_for_delete_id)
 
     app.project.delete_first()
 
-    new_projects = app.soap.get_projects(username, password)
-    assert new_projects is not None
+    new_projects = db.get_projects()
     new_projects.append(project_for_delete)
     assert sorted(projects, key=Project.id_or_max) == sorted(new_projects, key=Project.id_or_max)
 

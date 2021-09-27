@@ -17,6 +17,14 @@ class ProjectHelper:
         wd.find_element_by_name("description").send_keys(project.description)
         wd.find_element_by_xpath("//input[@value='Add Project']").click()
 
+    def get_first_project_id(self):
+        wd = self.app.wd
+        self.app.open_homepage()
+        self.open_projects_page()
+        project_edit_page_link = wd.find_elements_by_css_selector("tr.row-1")[0].find_elements_by_css_selector("*")[1] \
+            .get_attribute("href")
+        return int(project_edit_page_link.split("id=", maxsplit=1)[1])
+
     def delete_first(self):
         wd = self.app.wd
         self.app.open_homepage()
